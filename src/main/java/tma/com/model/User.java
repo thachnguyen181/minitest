@@ -2,8 +2,10 @@ package tma.com.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,9 @@ public class User implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "username", unique = true, nullable = false)
 	private String username;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "username")
 	
 	public User() {}
 	
