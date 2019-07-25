@@ -33,6 +33,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- JPA Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.11.Final</version>
+		</dependency>
+
 		<!-- Unit test Rest -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
