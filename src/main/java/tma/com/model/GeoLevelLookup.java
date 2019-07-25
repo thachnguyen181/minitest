@@ -1,12 +1,16 @@
 package tma.com.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -22,6 +26,10 @@ public class GeoLevelLookup implements Serializable{
 	
 	@Column(name = "geo_name")
 	private String geoname;
+	
+	@ManyToMany
+	@JoinTable(name = "data_source_geo_level", joinColumns = {@JoinColumn(name = "geo_level_lookup_id", referencedColumnName="id")}, inverseJoinColumns = {@JoinColumn(name = "data_source_file_id", referencedColumnName="id")})
+    private Set<DataSourceFile> dataSourceFiles; 
 	
 	public GeoLevelLookup() {}
 
@@ -45,5 +53,35 @@ public class GeoLevelLookup implements Serializable{
 
 	public void setGeoname(String geoname) {
 		this.geoname = geoname;
+	}
+
+	public Set<DataSourceFile> getDataSourceFiles() {
+		return dataSourceFiles;
+	}
+
+	public void setDataSourceFiles(Set<DataSourceFile> dataSourceFiles) {
+		this.dataSourceFiles = dataSourceFiles;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GeoLevelLookup other = (GeoLevelLookup) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 }

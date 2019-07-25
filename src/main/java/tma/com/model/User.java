@@ -1,14 +1,14 @@
 package tma.com.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -23,8 +23,8 @@ public class User implements Serializable{
 	@Column(name = "username", unique = true, nullable = false)
 	private String username;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "username")
+	@OneToMany(mappedBy = "user")
+	private Set<DataSourceFile> dataSourceFiles;
 	
 	public User() {}
 	
@@ -37,5 +37,14 @@ public class User implements Serializable{
 	}
 	public void setUsername(String username) {
 		this.username = username;
-	}	
+	}
+
+	public Set<DataSourceFile> getDataSourceFiles() {
+		return dataSourceFiles;
+	}
+
+	public void setDataSourceFiles(Set<DataSourceFile> dataSourceFiles) {
+		this.dataSourceFiles = dataSourceFiles;
+	}
 }
+

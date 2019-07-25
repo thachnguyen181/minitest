@@ -1,28 +1,34 @@
 package tma.com.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "aggregated_data")
 public class AggregatedData implements Serializable{
 
-	private static final long serialVersionUID = 1868162720391308731L;
+	private static final long serialVersionUID = 2081792676877376781L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private UUID id;
 	
-	@Column(name = "data_source_geo_level_id")
-	private int dataSourceGeoLevelId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "data_source_geo_level_id")
+	private DataSourceGeoLevel dataSourceGeoLevel;
 	
 	@Column(name = "geo_level_state")
 	private String geoLevelState;
@@ -35,4 +41,76 @@ public class AggregatedData implements Serializable{
 	
 	@Column(name = "overall")
 	private double overall;
+	
+	@OneToMany(mappedBy = "aggregatedData")
+	private Set<AggregatedDataCategory> aggregatedDataCategorys;
+	
+	public AggregatedData() {}
+
+	public AggregatedData(UUID id, DataSourceGeoLevel dataSourceGeoLevel, String geoLevelState, String geoLevelName,
+			int geoId, double overall) {
+		super();
+		this.id = id;
+		this.dataSourceGeoLevel = dataSourceGeoLevel;
+		this.geoLevelState = geoLevelState;
+		this.geoLevelName = geoLevelName;
+		this.geoId = geoId;
+		this.overall = overall;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public DataSourceGeoLevel getDataSourceGeoLevel() {
+		return dataSourceGeoLevel;
+	}
+
+	public void setDataSourceGeoLevel(DataSourceGeoLevel dataSourceGeoLevel) {
+		this.dataSourceGeoLevel = dataSourceGeoLevel;
+	}
+
+	public String getGeoLevelState() {
+		return geoLevelState;
+	}
+
+	public void setGeoLevelState(String geoLevelState) {
+		this.geoLevelState = geoLevelState;
+	}
+
+	public String getGeoLevelName() {
+		return geoLevelName;
+	}
+
+	public void setGeoLevelName(String geoLevelName) {
+		this.geoLevelName = geoLevelName;
+	}
+
+	public int getGeoId() {
+		return geoId;
+	}
+
+	public void setGeoId(int geoId) {
+		this.geoId = geoId;
+	}
+
+	public double getOverall() {
+		return overall;
+	}
+
+	public void setOverall(double overall) {
+		this.overall = overall;
+	}
+
+	public Set<AggregatedDataCategory> getAggregatedDataCategorys() {
+		return aggregatedDataCategorys;
+	}
+
+	public void setAggregatedDataCategorys(Set<AggregatedDataCategory> aggregatedDataCategorys) {
+		this.aggregatedDataCategorys = aggregatedDataCategorys;
+	}
 }

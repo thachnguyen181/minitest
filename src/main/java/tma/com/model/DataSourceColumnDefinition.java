@@ -1,12 +1,17 @@
 package tma.com.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +37,79 @@ public class DataSourceColumnDefinition implements Serializable{
 	@Column(name = "column_number")
 	private int columnNumber;
 	
-	@Column(name = "data_source_name_id")
-	private int dataSourceNameId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "data_source_name_id")
+	private DataSourceName dataSourceName;
+	
+	@OneToMany(mappedBy = "dataSourceColumnDefinition")
+	private Set<AggregatedDataCategory> aggregatedDataCategorys;
+	
+	public DataSourceColumnDefinition() {}
+
+	public DataSourceColumnDefinition(int id, String category, String name, String uiName, int columnNumber,
+			DataSourceName dataSourceName) {
+		super();
+		this.id = id;
+		this.category = category;
+		this.name = name;
+		this.uiName = uiName;
+		this.columnNumber = columnNumber;
+		this.dataSourceName = dataSourceName;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUiName() {
+		return uiName;
+	}
+
+	public void setUiName(String uiName) {
+		this.uiName = uiName;
+	}
+
+	public int getColumnNumber() {
+		return columnNumber;
+	}
+
+	public void setColumnNumber(int columnNumber) {
+		this.columnNumber = columnNumber;
+	}
+
+	public DataSourceName getDataSourceName() {
+		return dataSourceName;
+	}
+
+	public void setDataSourceName(DataSourceName dataSourceName) {
+		this.dataSourceName = dataSourceName;
+	}
+
+	public Set<AggregatedDataCategory> getAggregatedDataCategorys() {
+		return aggregatedDataCategorys;
+	}
+
+	public void setAggregatedDataCategorys(Set<AggregatedDataCategory> aggregatedDataCategorys) {
+		this.aggregatedDataCategorys = aggregatedDataCategorys;
+	}
 }
