@@ -24,7 +24,7 @@ public class Index implements Serializable{
 	private int id;
 	
 	@ManyToMany(mappedBy = "indexs")
-	@JoinColumn(name = "index_data_id")
+	//@JoinColumn(name = "index_data_id")
 	private Set<DataSourceIndex> dataSourceIndexs;
 	
 	public Index() {}

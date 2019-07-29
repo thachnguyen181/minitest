@@ -3,6 +3,7 @@ package tma.com.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,8 +29,10 @@ public class DataSourceName implements Serializable{
 	@Column(name = "name")
 	private String name;
 	
-	@ManyToMany
-	@JoinTable(name = "data_source_index", joinColumns = {@JoinColumn(name = "data_source_name_id",referencedColumnName="id")}, inverseJoinColumns = @JoinColumn(name = "index_data_id", referencedColumnName="id"))
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "data_source_index",
+		joinColumns = {@JoinColumn(name = "data_source_name_id",referencedColumnName="id")},
+		inverseJoinColumns = @JoinColumn(name = "index_data_id", referencedColumnName="id"))
 	private Set<Index> indexs;
 	
 	@OneToMany(mappedBy = "dataSourceName")

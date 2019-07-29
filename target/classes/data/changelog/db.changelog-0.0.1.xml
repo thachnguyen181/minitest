@@ -1,0 +1,190 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="nnthach (generated)" id="1563791870938-1">
+        <createTable tableName="aggregated_data">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_source_geo_level_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="geo_level_state" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="geo_level_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="geo_id" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="overall" type="FLOAT8">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-2">
+        <createTable tableName="aggregated_data_category">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="aggregated_data_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_definition_column_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_value" type="FLOAT8">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-3">
+        <createTable tableName="data_source_column_definition">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="data_source_column_definition_pkey"/>
+            </column>
+            <column name="category" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ui_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="column_number" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_source_name_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-4">
+        <createTable tableName="data_source_file">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="data_source_file_pkey"/>
+            </column>
+            <column name="data_source_name_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_type_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="percentage" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creater_id" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-5">
+        <createTable tableName="data_source_geo_level">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="data_source_geo_level_pkey"/>
+            </column>
+            <column name="data_source_file_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="geo_level_lookup_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-6">
+        <createTable tableName="data_source_index">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="data_source_index_pkey"/>
+            </column>
+            <column name="data_source_name_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="index_data_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-7">
+        <createTable tableName="data_source_name">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="data_source_name_pkey"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-8">
+        <createTable tableName="geo_level_lookup">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="geo_level_lookup_pkey"/>
+            </column>
+            <column name="geo_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-9">
+        <createTable tableName="index">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="index_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-10">
+        <createTable tableName="user">
+            <column name="username" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-11">
+        <addPrimaryKey columnNames="id" constraintName="aggregated_data_category_pkey" tableName="aggregated_data_category"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-12">
+        <addPrimaryKey columnNames="id" constraintName="aggregated_data_pkey" tableName="aggregated_data"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-13">
+        <addPrimaryKey columnNames="username" constraintName="user_pkey" tableName="user"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-14">
+        <addForeignKeyConstraint baseColumnNames="aggregated_data_id" baseTableName="aggregated_data_category" constraintName="aggregated_data_category_aggregated_data_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="aggregated_data"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-15">
+        <addForeignKeyConstraint baseColumnNames="data_definition_column_id" baseTableName="aggregated_data_category" constraintName="aggregated_data_category_data_source_column_definition_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="data_source_column_definition"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-16">
+        <addForeignKeyConstraint baseColumnNames="data_source_geo_level_id" baseTableName="aggregated_data" constraintName="aggregated_data_data_source_geo_level_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="data_source_geo_level"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-17">
+        <addForeignKeyConstraint baseColumnNames="data_source_name_id" baseTableName="data_source_column_definition" constraintName="data_source_column_definition_data_source_name_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="data_source_name"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-18">
+        <addForeignKeyConstraint baseColumnNames="data_source_name_id" baseTableName="data_source_file" constraintName="data_source_file_data_source_name_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="data_source_name"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-19">
+        <addForeignKeyConstraint baseColumnNames="creater_id" baseTableName="data_source_file" constraintName="data_source_file_user_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="username" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-20">
+        <addForeignKeyConstraint baseColumnNames="data_source_file_id" baseTableName="data_source_geo_level" constraintName="data_source_geo_level_data_source_file_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="data_source_file"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-21">
+        <addForeignKeyConstraint baseColumnNames="geo_level_lookup_id" baseTableName="data_source_geo_level" constraintName="data_source_geo_level_geo_level_lookup_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="geo_level_lookup"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-22">
+        <addForeignKeyConstraint baseColumnNames="data_source_name_id" baseTableName="data_source_index" constraintName="data_source_index_data_source_name_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="data_source_name"/>
+    </changeSet>
+    <changeSet author="nnthach (generated)" id="1563791870938-23">
+        <addForeignKeyConstraint baseColumnNames="index_data_id" baseTableName="data_source_index" constraintName="data_source_index_index_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="index"/>
+    </changeSet>
+</databaseChangeLog>

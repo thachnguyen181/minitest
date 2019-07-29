@@ -21,16 +21,16 @@ public class GeoLevelLookupController {
 	private IGeoLevelLookupService geoLevelLookupService;
 	
 	//---------------------------- GET ALL GEO_LEVEL_LOOKUP ---------------------------//
-	@GetMapping(value = "/geolevellookups")
+	/*@GetMapping(value = "/geolevellookups")
 	public ResponseEntity<List<GeoLevelLookupDTO>> getAll() {
 		
 		return new ResponseEntity<List<GeoLevelLookupDTO>> (geoLevelLookupService.getAll(), HttpStatus.OK);
-	}
+	}*/
 	
 	//-------------------------- CREATE NEW GEO_LEVEL_LOOKUP --------------------------//
 	@PostMapping(value = "/geolevellookups")
-	public ResponseEntity<GeoLevelLookup> create(@RequestBody GeoLevelLookupDTO geoLevelLookupDto) {
-		GeoLevelLookup geoLevelLookupCreated = geoLevelLookupService.insert(geoLevelLookupDto);
+	public ResponseEntity<GeoLevelLookup> create(@RequestBody GeoLevelLookup geoLevelLookup) {
+		GeoLevelLookup geoLevelLookupCreated = geoLevelLookupService.insert(geoLevelLookup);
 		
 		if (geoLevelLookupCreated != null) {
 			return new ResponseEntity<GeoLevelLookup>(geoLevelLookupCreated, HttpStatus.CREATED);

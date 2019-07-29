@@ -15,8 +15,23 @@ public class GeoLevelLookupService implements IGeoLevelLookupService {
 
 	@Autowired
 	private IGeoLevelLookupRepository geoLevelLookupRepository;
-	
+
 	@Override
+	public List<GeoLevelLookup> getAll() {
+		// TODO Auto-generated method stub
+		
+		return geoLevelLookupRepository.findAll();
+	}
+
+	@Override
+	public GeoLevelLookup insert(GeoLevelLookup geoLevelLookup) {
+		// TODO Auto-generated method stub
+		
+		GeoLevelLookup geoLevelLookupEdited = geoLevelLookupRepository.save(geoLevelLookup);
+		return geoLevelLookupEdited;
+	}
+	
+	/*@Override
 	public List<GeoLevelLookupDTO> getAll() {
 		// TODO Auto-generated method stub
 		
@@ -38,6 +53,8 @@ public class GeoLevelLookupService implements IGeoLevelLookupService {
 		// TODO Auto-generated method stub
 		
 		return geoLevelLookupRepository.save(new GeoLevelLookup(geoLevelLookupDto.getId(), geoLevelLookupDto.getGeoname()));
-	}
+	}*/
+	
+	
 
 }
