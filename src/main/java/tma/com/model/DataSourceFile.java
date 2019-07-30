@@ -10,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -48,13 +48,13 @@ public class DataSourceFile implements Serializable{
 	@JoinColumn(name = "creater_id")
 	private User user;
 	
-	@ManyToMany(mappedBy = "dataSourceFiles")
-	private Set<GeoLevelLookup> geoLevelLookups;
+	@OneToMany(mappedBy = "dataSourceFile")
+	private Set<DataSourceGeoLevel> dataSourceGeoLevels;
 	
 	public DataSourceFile() {}
 
 	public DataSourceFile(int id, DataSourceName dataSourceName, String fileName, String dataTypeName, int year,
-			Boolean percentage, String status, User user) {
+			Boolean percentage, String status, User user, Set<DataSourceGeoLevel> dataSourceGeoLevels) {
 		super();
 		this.id = id;
 		this.dataSourceName = dataSourceName;
@@ -64,6 +64,7 @@ public class DataSourceFile implements Serializable{
 		this.percentage = percentage;
 		this.status = status;
 		this.user = user;
+		this.dataSourceGeoLevels = dataSourceGeoLevels;
 	}
 
 	public int getId() {
@@ -130,33 +131,11 @@ public class DataSourceFile implements Serializable{
 		this.user = user;
 	}
 
-	public Set<GeoLevelLookup> getGeoLevelLookups() {
-		return geoLevelLookups;
+	public Set<DataSourceGeoLevel> getDataSourceGeoLevels() {
+		return dataSourceGeoLevels;
 	}
 
-	public void setGeoLevelLookups(Set<GeoLevelLookup> geoLevelLookups) {
-		this.geoLevelLookups = geoLevelLookups;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DataSourceFile other = (DataSourceFile) obj;
-		if (id != other.id)
-			return false;
-		return true;
+	public void setDataSourceGeoLevels(Set<DataSourceGeoLevel> dataSourceGeoLevels) {
+		this.dataSourceGeoLevels = dataSourceGeoLevels;
 	}
 }

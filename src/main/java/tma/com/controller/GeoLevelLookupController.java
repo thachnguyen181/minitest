@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tma.com.dto.GeoLevelLookupDTO;
 import tma.com.model.GeoLevelLookup;
 import tma.com.service.IGeoLevelLookupService;
+import tma.com.util.DTO;
 
 @RestController
 public class GeoLevelLookupController {
@@ -29,7 +30,7 @@ public class GeoLevelLookupController {
 	
 	//-------------------------- CREATE NEW GEO_LEVEL_LOOKUP --------------------------//
 	@PostMapping(value = "/geolevellookups")
-	public ResponseEntity<GeoLevelLookup> create(@RequestBody GeoLevelLookup geoLevelLookup) {
+	public ResponseEntity<GeoLevelLookup> create(@DTO(GeoLevelLookupDTO.class) GeoLevelLookup geoLevelLookup) {
 		GeoLevelLookup geoLevelLookupCreated = geoLevelLookupService.insert(geoLevelLookup);
 		
 		if (geoLevelLookupCreated != null) {

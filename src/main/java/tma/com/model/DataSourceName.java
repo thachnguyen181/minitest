@@ -3,15 +3,11 @@ package tma.com.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,11 +25,8 @@ public class DataSourceName implements Serializable{
 	@Column(name = "name")
 	private String name;
 	
-	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "data_source_index",
-		joinColumns = {@JoinColumn(name = "data_source_name_id",referencedColumnName="id")},
-		inverseJoinColumns = @JoinColumn(name = "index_data_id", referencedColumnName="id"))
-	private Set<Index> indexs;
+	@OneToMany(mappedBy = "dataSourceName")
+	private Set<DataSourceIndex> dataSourceIndexs;
 	
 	@OneToMany(mappedBy = "dataSourceName")
 	private Set<DataSourceFile> dataSourceFiles;
@@ -41,6 +34,17 @@ public class DataSourceName implements Serializable{
 	@OneToMany(mappedBy = "dataSourceName")
 	private Set<DataSourceColumnDefinition> dataSourceColumnDefinitions;
 	
+	public DataSourceName() {}
+
+	public DataSourceName(int id, String name, Set<DataSourceIndex> dataSourceIndexs,
+			Set<DataSourceFile> dataSourceFiles, Set<DataSourceColumnDefinition> dataSourceColumnDefinitions) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.dataSourceIndexs = dataSourceIndexs;
+		this.dataSourceFiles = dataSourceFiles;
+		this.dataSourceColumnDefinitions = dataSourceColumnDefinitions;
+	}
 
 	public int getId() {
 		return id;
@@ -58,12 +62,12 @@ public class DataSourceName implements Serializable{
 		this.name = name;
 	}
 
-	public Set<Index> getIndexs() {
-		return indexs;
+	public Set<DataSourceIndex> getDataSourceIndexs() {
+		return dataSourceIndexs;
 	}
 
-	public void setIndexs(Set<Index> index) {
-		this.indexs = index;
+	public void setDataSourceIndexs(Set<DataSourceIndex> dataSourceIndexs) {
+		this.dataSourceIndexs = dataSourceIndexs;
 	}
 
 	public Set<DataSourceFile> getDataSourceFiles() {
@@ -74,25 +78,11 @@ public class DataSourceName implements Serializable{
 		this.dataSourceFiles = dataSourceFiles;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+	public Set<DataSourceColumnDefinition> getDataSourceColumnDefinitions() {
+		return dataSourceColumnDefinitions;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DataSourceName other = (DataSourceName) obj;
-		if (id != other.id)
-			return false;
-		return true;
+	public void setDataSourceColumnDefinitions(Set<DataSourceColumnDefinition> dataSourceColumnDefinitions) {
+		this.dataSourceColumnDefinitions = dataSourceColumnDefinitions;
 	}
 }

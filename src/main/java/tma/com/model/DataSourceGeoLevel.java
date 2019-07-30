@@ -5,9 +5,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,22 +25,26 @@ public class DataSourceGeoLevel implements Serializable{
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "data_source_file_id")
-	private int datSourceFileId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "data_source_file_id")
+	private DataSourceFile dataSourceFile;
 	
-	@Column(name = "geo_level_lookup_id")
-	private int geoLevelLookupId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "geo_level_lookup_id")
+	private GeoLevelLookup geoLevelLookup;
 	
 	@OneToMany(mappedBy = "dataSourceGeoLevel")
 	private Set<AggregatedData> aggregatedData;
 	
 	public DataSourceGeoLevel() {}
 
-	public DataSourceGeoLevel(int id, int datSourceFileId, int geoLevelLookupId) {
+	public DataSourceGeoLevel(int id, DataSourceFile dataSourceFile, GeoLevelLookup geoLevelLookup,
+			Set<AggregatedData> aggregatedData) {
 		super();
 		this.id = id;
-		this.datSourceFileId = datSourceFileId;
-		this.geoLevelLookupId = geoLevelLookupId;
+		this.dataSourceFile = dataSourceFile;
+		this.geoLevelLookup = geoLevelLookup;
+		this.aggregatedData = aggregatedData;
 	}
 
 	public int getId() {
@@ -48,20 +55,20 @@ public class DataSourceGeoLevel implements Serializable{
 		this.id = id;
 	}
 
-	public int getDatSourceFileId() {
-		return datSourceFileId;
+	public DataSourceFile getDataSourceFile() {
+		return dataSourceFile;
 	}
 
-	public void setDatSourceFileId(int datSourceFileId) {
-		this.datSourceFileId = datSourceFileId;
+	public void setDataSourceFile(DataSourceFile dataSourceFile) {
+		this.dataSourceFile = dataSourceFile;
 	}
 
-	public int getGeoLevelLookupId() {
-		return geoLevelLookupId;
+	public GeoLevelLookup getGeoLevelLookup() {
+		return geoLevelLookup;
 	}
 
-	public void setGeoLevelLookupId(int geoLevelLookupId) {
-		this.geoLevelLookupId = geoLevelLookupId;
+	public void setGeoLevelLookup(GeoLevelLookup geoLevelLookup) {
+		this.geoLevelLookup = geoLevelLookup;
 	}
 
 	public Set<AggregatedData> getAggregatedData() {

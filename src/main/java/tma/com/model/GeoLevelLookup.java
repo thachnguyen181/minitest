@@ -3,14 +3,14 @@ package tma.com.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -25,18 +25,18 @@ public class GeoLevelLookup implements Serializable{
 	private int id;
 	
 	@Column(name = "geo_name")
-	private String geoname;
+	private String geoName;
 	
-	@ManyToMany
-	@JoinTable(name = "data_source_geo_level", joinColumns = {@JoinColumn(name = "geo_level_lookup_id", referencedColumnName="id")}, inverseJoinColumns = {@JoinColumn(name = "data_source_file_id", referencedColumnName="id")})
-    private Set<DataSourceFile> dataSourceFiles; 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "geoLevelLookup")
+    private Set<DataSourceGeoLevel> dataSourceGeoLevels; 
 	
 	public GeoLevelLookup() {}
 
-	public GeoLevelLookup(int id, String geoname) {
+	public GeoLevelLookup(int id, String geoName, Set<DataSourceGeoLevel> dataSourceGeoLevels) {
 		super();
 		this.id = id;
-		this.geoname = geoname;
+		this.geoName = geoName;
+		this.dataSourceGeoLevels = dataSourceGeoLevels;
 	}
 
 	public int getId() {
@@ -47,41 +47,19 @@ public class GeoLevelLookup implements Serializable{
 		this.id = id;
 	}
 
-	public String getGeoname() {
-		return geoname;
+	public String getGeoName() {
+		return geoName;
 	}
 
-	public void setGeoname(String geoname) {
-		this.geoname = geoname;
+	public void setGeoName(String geoName) {
+		this.geoName = geoName;
 	}
 
-	public Set<DataSourceFile> getDataSourceFiles() {
-		return dataSourceFiles;
+	public Set<DataSourceGeoLevel> getDataSourceGeoLevels() {
+		return dataSourceGeoLevels;
 	}
 
-	public void setDataSourceFiles(Set<DataSourceFile> dataSourceFiles) {
-		this.dataSourceFiles = dataSourceFiles;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		GeoLevelLookup other = (GeoLevelLookup) obj;
-		if (id != other.id)
-			return false;
-		return true;
+	public void setDataSourceGeoLevels(Set<DataSourceGeoLevel> dataSourceGeoLevels) {
+		this.dataSourceGeoLevels = dataSourceGeoLevels;
 	}
 }

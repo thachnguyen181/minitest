@@ -8,7 +8,7 @@
 	<persistence-unit name="persistenceUnitName"
 		transaction-type="RESOURCE_LOCAL">
 		<class>tma.com.model.AggregatedData</class>
-		<class>tma.com.model.AggregatedDatacategory</class>
+		<class>tma.com.model.AggregatedDataCategory</class>
 		<class>tma.com.model.DataSourceColumnDefinition</class>
 		<class>tma.com.model.DataSourceFile</class>
 		<class>tma.com.model.DataSourceGeoLevel</class>
