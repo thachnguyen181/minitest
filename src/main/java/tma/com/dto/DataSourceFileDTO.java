@@ -2,7 +2,7 @@ package tma.com.dto;
 
 import java.util.List;
 
-public class ResponseBodyDTO {
+public class DataSourceFileDTO {
 
 	private String submitAction;
 	private String dataSourceName;
@@ -11,13 +11,13 @@ public class ResponseBodyDTO {
 	private String satisticType;
 	private boolean percentage;
 	private String fileName;
-	private List<SheetDataDTO> listSheetData;
+	private List<AggregatedDataDTO> listSheetData;
 	private String s3KeyName;
 	
-	public ResponseBodyDTO() {}
+	public DataSourceFileDTO() {}
 
-	public ResponseBodyDTO(String submitAction, String dataSourceName, int year, List<IndexDTO> listIndex,
-			String satisticType, boolean percentage, String fileName, List<SheetDataDTO> listSheetData,
+	public DataSourceFileDTO(String submitAction, String dataSourceName, int year, List<IndexDTO> listIndex,
+			String satisticType, boolean percentage, String fileName, List<AggregatedDataDTO> listSheetData,
 			String s3KeyName) {
 		super();
 		this.submitAction = submitAction;
@@ -87,11 +87,11 @@ public class ResponseBodyDTO {
 		this.fileName = fileName;
 	}
 
-	public List<SheetDataDTO> getListSheetData() {
+	public List<AggregatedDataDTO> getListSheetData() {
 		return listSheetData;
 	}
 
-	public void setListSheetData(List<SheetDataDTO> listSheetData) {
+	public void setListSheetData(List<AggregatedDataDTO> listSheetData) {
 		this.listSheetData = listSheetData;
 	}
 
