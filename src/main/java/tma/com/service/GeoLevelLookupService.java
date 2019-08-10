@@ -16,7 +16,7 @@ public class GeoLevelLookupService implements IGeoLevelLookupService {
 	@Autowired
 	private IGeoLevelLookupRepository geoLevelLookupRepository;
 
-	@Override
+	/*@Override
 	public List<GeoLevelLookup> getAll() {
 		// TODO Auto-generated method stub
 		
@@ -29,31 +29,33 @@ public class GeoLevelLookupService implements IGeoLevelLookupService {
 		
 		GeoLevelLookup geoLevelLookupEdited = geoLevelLookupRepository.save(geoLevelLookup);
 		return geoLevelLookupEdited;
-	}
+	}*/
 	
-	/*@Override
-	public List<GeoLevelLookupDTO> getAll() {
+	
+	@Override
+	public GeoLevelLookup insert(GeoLevelLookupDTO geoLevelLookupDto) {
 		// TODO Auto-generated method stub
 		
 		GeoLevelLookup geoLevelLookup = new GeoLevelLookup();
+		geoLevelLookup.setGeoName(geoLevelLookupDto.getGeoname());
+		//geoLevelLookup.setDataSourceGeoLevels(dataSourceGeoLevels);
+		return geoLevelLookupRepository.save(geoLevelLookup);
+	}
+
+	@Override
+	public List<GeoLevelLookupDTO> getAll() {
+		// TODO Auto-generated method stub
 		ArrayList<GeoLevelLookupDTO> geoLevelLookupDtos = new ArrayList<GeoLevelLookupDTO>();
 		
 		for (GeoLevelLookup i : geoLevelLookupRepository.findAll()) {
 			GeoLevelLookupDTO geoLevelLookupDto = new GeoLevelLookupDTO();
 			geoLevelLookupDto.setId(i.getId());
-			geoLevelLookupDto.setGeoname(i.getGeoname());
+			geoLevelLookupDto.setGeoname(i.getGeoName());
 			geoLevelLookupDtos.add(geoLevelLookupDto);
 		}		
 		
 		return geoLevelLookupDtos;
 	}
-
-	@Override
-	public GeoLevelLookup insert(GeoLevelLookupDTO geoLevelLookupDto) {
-		// TODO Auto-generated method stub
-		
-		return geoLevelLookupRepository.save(new GeoLevelLookup(geoLevelLookupDto.getId(), geoLevelLookupDto.getGeoname()));
-	}*/
 	
 	
 

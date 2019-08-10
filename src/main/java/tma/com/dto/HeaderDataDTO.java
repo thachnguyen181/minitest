@@ -1,14 +1,14 @@
 package tma.com.dto;
 
-public class DataSourceColumnDefinitionDTO {
-	
+public class HeaderDataDTO {
+
 	private String nameInExcelFile;
 	private String nameForUI;
 	private String category;
 	
-	public DataSourceColumnDefinitionDTO() {}
-
-	public DataSourceColumnDefinitionDTO(String nameInExcelFile, String nameForUI, String category) {
+	public HeaderDataDTO() {}
+	
+	public HeaderDataDTO(String nameInExcelFile, String nameForUI, String category) {
 		super();
 		this.nameInExcelFile = nameInExcelFile;
 		this.nameForUI = nameForUI;

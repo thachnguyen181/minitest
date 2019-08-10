@@ -2,29 +2,28 @@ package tma.com.dto;
 
 import java.util.List;
 
-public class DataSourceFileDTO {
-
+public class ResponseDTO {
 	private String submitAction;
 	private String dataSourceName;
 	private int year;
 	private List<IndexDTO> listIndex;
-	private String satisticType;
+	private String statisticType;
 	private boolean percentage;
 	private String fileName;
-	private List<AggregatedDataDTO> listSheetData;
+	private List<SheetDataDTO> listSheetData;
 	private String s3KeyName;
 	
-	public DataSourceFileDTO() {}
+	public ResponseDTO() {}
 
-	public DataSourceFileDTO(String submitAction, String dataSourceName, int year, List<IndexDTO> listIndex,
-			String satisticType, boolean percentage, String fileName, List<AggregatedDataDTO> listSheetData,
+	public ResponseDTO(String submitAction, String dataSourceName, int year, List<IndexDTO> listIndex,
+			String statisticType, boolean percentage, String fileName, List<SheetDataDTO> listSheetData,
 			String s3KeyName) {
 		super();
 		this.submitAction = submitAction;
 		this.dataSourceName = dataSourceName;
 		this.year = year;
 		this.listIndex = listIndex;
-		this.satisticType = satisticType;
+		this.statisticType = statisticType;
 		this.percentage = percentage;
 		this.fileName = fileName;
 		this.listSheetData = listSheetData;
@@ -63,12 +62,12 @@ public class DataSourceFileDTO {
 		this.listIndex = listIndex;
 	}
 
-	public String getSatisticType() {
-		return satisticType;
+	public String getStatisticType() {
+		return statisticType;
 	}
 
-	public void setSatisticType(String satisticType) {
-		this.satisticType = satisticType;
+	public void setStatisticType(String statisticType) {
+		this.statisticType = statisticType;
 	}
 
 	public boolean isPercentage() {
@@ -87,11 +86,11 @@ public class DataSourceFileDTO {
 		this.fileName = fileName;
 	}
 
-	public List<AggregatedDataDTO> getListSheetData() {
+	public List<SheetDataDTO> getListSheetData() {
 		return listSheetData;
 	}
 
-	public void setListSheetData(List<AggregatedDataDTO> listSheetData) {
+	public void setListSheetData(List<SheetDataDTO> listSheetData) {
 		this.listSheetData = listSheetData;
 	}
 

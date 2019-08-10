@@ -30,8 +30,8 @@ public class GeoLevelLookupController {
 	
 	//-------------------------- CREATE NEW GEO_LEVEL_LOOKUP --------------------------//
 	@PostMapping(value = "/geolevellookups")
-	public ResponseEntity<GeoLevelLookup> create(@DTO(GeoLevelLookupDTO.class) GeoLevelLookup geoLevelLookup) {
-		GeoLevelLookup geoLevelLookupCreated = geoLevelLookupService.insert(geoLevelLookup);
+	public ResponseEntity<GeoLevelLookup> create(GeoLevelLookupDTO geoLevelLookupDto) {
+		GeoLevelLookup geoLevelLookupCreated = geoLevelLookupService.insert(geoLevelLookupDto);
 		
 		if (geoLevelLookupCreated != null) {
 			return new ResponseEntity<GeoLevelLookup>(geoLevelLookupCreated, HttpStatus.CREATED);

@@ -2,21 +2,21 @@ package tma.com.dto;
 
 import java.util.List;
 
-public class AggregatedDataDTO {
+public class SheetDataDTO {
 	
 	private String sheetName;
 	private String geoLevel;
-	private List<AggregatedDataDTO> listSheetDataDto;
+	private List<HeaderDataDTO> listHeaderData;
 	private List<String> listRowData;
 	
-	public AggregatedDataDTO() {}
+	public SheetDataDTO() {}
 
-	public AggregatedDataDTO(String sheetName, String geoLevel, List<AggregatedDataDTO> listSheetDataDto,
+	public SheetDataDTO(String sheetName, String geoLevel, List<HeaderDataDTO> listHeaderData,
 			List<String> listRowData) {
 		super();
 		this.sheetName = sheetName;
 		this.geoLevel = geoLevel;
-		this.listSheetDataDto = listSheetDataDto;
+		this.listHeaderData = listHeaderData;
 		this.listRowData = listRowData;
 	}
 
@@ -36,12 +36,12 @@ public class AggregatedDataDTO {
 		this.geoLevel = geoLevel;
 	}
 
-	public List<AggregatedDataDTO> getListSheetDataDto() {
-		return listSheetDataDto;
+	public List<HeaderDataDTO> getListHeaderData() {
+		return listHeaderData;
 	}
 
-	public void setListSheetDataDto(List<AggregatedDataDTO> listSheetDataDto) {
-		this.listSheetDataDto = listSheetDataDto;
+	public void setListHeaderData(List<HeaderDataDTO> listHeaderData) {
+		this.listHeaderData = listHeaderData;
 	}
 
 	public List<String> getListRowData() {

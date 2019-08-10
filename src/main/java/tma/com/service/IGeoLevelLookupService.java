@@ -7,6 +7,6 @@ import tma.com.model.GeoLevelLookup;
 
 public interface IGeoLevelLookupService {
 
-	public List<GeoLevelLookup> getAll();
-	public GeoLevelLookup insert(GeoLevelLookup geoLevelLookup);
+	public List<GeoLevelLookupDTO> getAll();
+	public GeoLevelLookup insert(GeoLevelLookupDTO geoLevelLookupDto);
 }

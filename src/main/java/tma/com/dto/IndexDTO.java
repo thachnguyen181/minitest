@@ -1,21 +1,23 @@
 package tma.com.dto;
 
+import java.util.Date;
+
 public class IndexDTO {
 	
 	private int id;
 	private String indexName;
 	private String displayName;
-	private String createAt;
-	private String updatedAt;
+	private Date createdAt;
+	private Date updatedAt;
 	
 	public IndexDTO() {}
 	
-	public IndexDTO(int id, String indexName, String displayName, String createAt, String updatedAt) {
+	public IndexDTO(int id, String indexName, String displayName, Date createdAt, Date updatedAt) {
 		super();
 		this.id = id;
 		this.indexName = indexName;
 		this.displayName = displayName;
-		this.createAt = createAt;
+		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
 
@@ -43,19 +45,19 @@ public class IndexDTO {
 		this.displayName = displayName;
 	}
 
-	public String getCreateAt() {
-		return createAt;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreateAt(String createAt) {
-		this.createAt = createAt;
+	public void setCreateAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public String getUpdatedAt() {
+	public Date getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}		
 }

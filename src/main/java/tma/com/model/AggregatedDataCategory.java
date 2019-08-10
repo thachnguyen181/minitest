@@ -13,14 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "aggregated_data_category")
 public class AggregatedDataCategory implements Serializable{
 
 	private static final long serialVersionUID = 7996464031243211155L;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid",strategy = "uuid")
+	@Column(name = "id", nullable = false, updatable = false)
 	private UUID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

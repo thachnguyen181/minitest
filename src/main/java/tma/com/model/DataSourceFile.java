@@ -51,6 +51,15 @@ public class DataSourceFile implements Serializable{
 	@OneToMany(mappedBy = "dataSourceFile")
 	private Set<DataSourceGeoLevel> dataSourceGeoLevels;
 	
+	@Column(name = "submit_action")
+	private String submitAction;
+	
+	@Column(name = "statistic_type")
+	private String statisticType;
+	
+	@Column(name = "s3_key_name")
+	private String s3KeyName;
+	
 	public DataSourceFile() {}
 
 	public DataSourceFile(int id, DataSourceName dataSourceName, String fileName, String dataTypeName, int year,
@@ -137,5 +146,29 @@ public class DataSourceFile implements Serializable{
 
 	public void setDataSourceGeoLevels(Set<DataSourceGeoLevel> dataSourceGeoLevels) {
 		this.dataSourceGeoLevels = dataSourceGeoLevels;
+	}
+
+	public String getSubmitAction() {
+		return submitAction;
+	}
+
+	public void setSubmitAction(String submitAction) {
+		this.submitAction = submitAction;
+	}
+
+	public String getStatisticType() {
+		return statisticType;
+	}
+
+	public void setStatisticType(String statisticType) {
+		this.statisticType = statisticType;
+	}
+
+	public String getS3KeyName() {
+		return s3KeyName;
+	}
+
+	public void setS3KeyName(String s3KeyName) {
+		this.s3KeyName = s3KeyName;
 	}
 }
