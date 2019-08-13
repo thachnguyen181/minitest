@@ -16,16 +16,20 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "aggregated_data")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class AggregatedData implements Serializable{
 
 	private static final long serialVersionUID = 2081792676877376781L;
 
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	@Column(name = "id")
+	@GeneratedValue(generator="UUID")
+	@GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

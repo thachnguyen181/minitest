@@ -22,8 +22,8 @@ public class AggregatedDataCategory implements Serializable{
 	private static final long serialVersionUID = 7996464031243211155L;
 	
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid",strategy = "uuid")
+	@GeneratedValue(generator="UUID")
+	@GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id", nullable = false, updatable = false)
 	private UUID id;
 	
