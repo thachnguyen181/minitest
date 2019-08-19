@@ -22,10 +22,11 @@ public class AggregatedDataCategory implements Serializable{
 	private static final long serialVersionUID = 7996464031243211155L;
 	
 	@Id
-	@GeneratedValue(generator="UUID")
-	@GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	//@GeneratedValue(generator="UUID")
+	//@GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
-	private UUID id;
+	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "aggregated_data_id")
@@ -40,7 +41,7 @@ public class AggregatedDataCategory implements Serializable{
 	
 	public AggregatedDataCategory() {}
 
-	public AggregatedDataCategory(UUID id, AggregatedData aggregatedData,
+	public AggregatedDataCategory(int id, AggregatedData aggregatedData,
 			DataSourceColumnDefinition dataSourceColumnDefinition, double dataValue) {
 		super();
 		this.id = id;
@@ -49,11 +50,11 @@ public class AggregatedDataCategory implements Serializable{
 		this.dataValue = dataValue;
 	}
 
-	public UUID getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

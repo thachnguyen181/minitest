@@ -10,6 +10,6 @@ import tma.com.model.GeoLevelLookup;
 @Repository
 public interface IGeoLevelLookupRepository extends JpaRepository<GeoLevelLookup, Integer> {
 	
-	@Query("SELECT g FROM geo_level_lookup g WHERE g.geo_name = :name")
+	@Query("SELECT g FROM GeoLevelLookup g WHERE g.geoName = :name")
 	public GeoLevelLookup findByName(@Param("name")String name);
 }

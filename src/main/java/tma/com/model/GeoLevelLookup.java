@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "geo_level_lookup", uniqueConstraints = {@UniqueConstraint(name = "geo_level_lookup_pkey", columnNames = {"id"})})
+@Table(name = "geo_level_lookup")//, uniqueConstraints = {@UniqueConstraint(name = "geo_level_lookup_pkey", columnNames = {"id"})})
 public class GeoLevelLookup implements Serializable{
 
 	private static final long serialVersionUID = -5842832319776588767L;

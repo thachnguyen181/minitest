@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,10 +28,11 @@ public class AggregatedData implements Serializable{
 	private static final long serialVersionUID = 2081792676877376781L;
 
 	@Id
-	@GeneratedValue(generator="UUID")
-	@GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	//@GeneratedValue(generator="UUID")
+	//@GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
-	private UUID id;
+	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "data_source_geo_level_id")
@@ -53,7 +55,7 @@ public class AggregatedData implements Serializable{
 	
 	public AggregatedData() {}
 
-	public AggregatedData(UUID id, DataSourceGeoLevel dataSourceGeoLevel, String geoLevelState, String geoLevelName,
+	public AggregatedData(int id, DataSourceGeoLevel dataSourceGeoLevel, String geoLevelState, String geoLevelName,
 			int geoId, double overall) {
 		super();
 		this.id = id;
@@ -64,11 +66,11 @@ public class AggregatedData implements Serializable{
 		this.overall = overall;
 	}
 
-	public UUID getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

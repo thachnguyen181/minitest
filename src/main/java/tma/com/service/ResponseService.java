@@ -1,12 +1,12 @@
 package tma.com.service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tma.com.dto.HeaderDataDTO;
 import tma.com.dto.IndexDTO;
 import tma.com.dto.ResponseDTO;
 import tma.com.dto.SheetDataDTO;
@@ -28,64 +28,61 @@ import tma.com.repository.IDataSourceIndexRepository;
 import tma.com.repository.IDataSourceNameRepository;
 import tma.com.repository.IGeoLevelLookupRepository;
 import tma.com.repository.IIndexRepository;
-import tma.com.repository.IResponseRepository;
 
 @Service
-public class ResponseService implements IResponseService{
-	
-	@Autowired
-	private IResponseRepository responseRepository;
-	
+public class ResponseService implements IResponseService {
+
 	@Autowired
 	private IDataSourceNameRepository dataSourceNameRepository;
-	
+
 	@Autowired
 	private IDataSourceFileRepository dataSourceFileRepository;
-	
+
 	@Autowired
 	private IIndexRepository indexRepository;
-	
+
 	@Autowired
 	private IDataSourceIndexRepository dataSourceIndexRepository;
-	
+
 	@Autowired
 	private IGeoLevelLookupRepository geoLevelLookupRepository;
-	
+
 	@Autowired
 	private IDataSourceGeoLevelRepository dataSourceGeoLevelRepository;
-	
+
 	@Autowired
 	private IDataSourceColumnDefinitionRepository dataSourceColumnDefinitionRepository;
-	
+
 	@Autowired
 	private IAggregatedDataRepository aggregatedDataRepository;
-	
+
 	@Autowired
-	private IAggregatedDataCategoryRepository aggregatedDataCategoryRespository;
-	
+	private IAggregatedDataCategoryRepository aggregatedDataCategoryRepository;
+
 	private DataSourceName dataSourceName;
 	private DataSourceFile dataSourceFile;
-	//private Index index;
+	// private Index index;
 	private GeoLevelLookup geoLevelLookup;
 	private AggregatedData aggregatedData;
 	private AggregatedDataCategory aggregatedDataCategory;
 
 	@Override
-	public ResponseDTO getData(ResponseDTO responseDto) {
+	public String getData(ResponseDTO responseDto) {
 		// TODO Auto-generated method stub
-		
+
 		if (responseDto != null) {
 			if (responseDto.getDataSourceName() != "") {
-				
+
 				// data_source_name
 				if (dataSourceNameRepository.findByName(responseDto.getDataSourceName()) != null) {
 					dataSourceName = dataSourceNameRepository.findByName(responseDto.getDataSourceName());
 				} else {
 					dataSourceName = new DataSourceName();
-					dataSourceName.setName(responseDto.getDataSourceName()); 
+					dataSourceName.setName(responseDto.getDataSourceName());
+
 					dataSourceName = dataSourceNameRepository.save(dataSourceName);
 				}
-				
+
 				// data_source_file
 				dataSourceFile = new DataSourceFile();
 				dataSourceFile.setDataSourceName(dataSourceName);
@@ -95,9 +92,12 @@ public class ResponseService implements IResponseService{
 				dataSourceFile.setSubmitAction(responseDto.getSubmitAction());
 				dataSourceFile.setStatisticType(responseDto.getStatisticType());
 				dataSourceFile.setS3KeyName(responseDto.getS3KeyName());
-				dataSourceFileRepository.save(dataSourceFile);
+
+				dataSourceFile = dataSourceFileRepository.save(dataSourceFile);
+			} else {
+				return "DataSourceName is null";
 			}
-			
+
 			// index
 			if (responseDto.getListIndex() != null) {
 				for (IndexDTO indexDto : responseDto.getListIndex()) {
@@ -106,18 +106,21 @@ public class ResponseService implements IResponseService{
 					index.setIndexName(indexDto.getIndexName());
 					index.setCreatedAt(new Date());
 					index.setUpdatedAt(new Date());
-					
+
 					index = indexRepository.save(index);
-					
+
 					// data_source_index
 					// Check(data_source_name)?
 					DataSourceIndex dataSourceIndex = new DataSourceIndex();
 					dataSourceIndex.setDataSourceName(dataSourceName);
 					dataSourceIndex.setIndex(index);
+
 					dataSourceIndexRepository.save(dataSourceIndex);
 				}
+			} else {
+				return "ListIndex is null";
 			}
-			
+
 			// geo_level_lookup
 			if (responseDto.getListSheetData() != null) {
 				for (SheetDataDTO sheetDataDto : responseDto.getListSheetData()) {
@@ -127,94 +130,83 @@ public class ResponseService implements IResponseService{
 						} else {
 							geoLevelLookup = new GeoLevelLookup();
 							geoLevelLookup.setGeoName(sheetDataDto.getGeoLevel());
+
 							geoLevelLookup = geoLevelLookupRepository.save(geoLevelLookup);
 						}
-						
+
 						// data_source_geo_level
 						// Check(data_source_file)?
 						DataSourceGeoLevel dataSourceGeoLevel = new DataSourceGeoLevel();
 						dataSourceGeoLevel.setDataSourceFile(dataSourceFile);
 						dataSourceGeoLevel.setGeoLevelLookup(geoLevelLookup);
+
 						dataSourceGeoLevel = dataSourceGeoLevelRepository.save(dataSourceGeoLevel);
 
 						// data_source_column_definition
 						if (dataSourceName != null) {
+							List<String> stringList = Arrays.asList("OVERALL", "BE_EXCLUED", "GEO");
 							if (sheetDataDto.getListHeaderData() != null) {
-								/*for (HeaderDataDTO headerDataDto: sheetDataDto.getListHeaderData()) {
-									DataSourceColumnDefinition dataSourceColumnDefinition = new DataSourceColumnDefinition();
-									dataSourceColumnDefinition.setCategory(headerDataDto.getCategory());
-									dataSourceColumnDefinition.setName(headerDataDto.getNameInExcelFile());
-									dataSourceColumnDefinition.setUiName(headerDataDto.getNameForUI());
-									dataSourceColumnDefinition.setDataSourceName(dataSourceName);
-									dataSourceColumnDefinition = dataSourceColumnDefinitionRepository.save(dataSourceColumnDefinition);
-									
-									if (sheetDataDto.getListRowData() != null) {
-										for (String row : sheetDataDto.getListRowData()) {
-											
-										}
-										if (headerDataDto.getCategory() == "overall") {
-											
-										}
-									}
-								}*/
-								
-								//List<String> listDataValue = sheetDataDto.getListRowData().subList(2,  sheetDataDto.getListRowData().size());
-								//list<double> listNumericData = listDataValue.Select(x => double.Parse(x))dataSourceGeoLevel.ToList();
-							
-								for (int i = 0; i < sheetDataDto.getListHeaderData().size(); i++) {
-									DataSourceColumnDefinition dataSourceColumnDefinition = new DataSourceColumnDefinition();
-									dataSourceColumnDefinition.setCategory(sheetDataDto.getListHeaderData().get(i).getCategory());
-									dataSourceColumnDefinition.setName(sheetDataDto.getListHeaderData().get(i).getNameInExcelFile());
-									dataSourceColumnDefinition.setUiName(sheetDataDto.getListHeaderData().get(i).getNameForUI());
-									dataSourceColumnDefinition.setDataSourceName(dataSourceName);
-									dataSourceColumnDefinition = dataSourceColumnDefinitionRepository.save(dataSourceColumnDefinition);
-									
-									if (sheetDataDto.getListRowData() != null) {
-										aggregatedData = new AggregatedData();
-										aggregatedData.setGeoLevelState(sheetDataDto.getListRowData().get(0));
-										aggregatedData.setGeoLevelName(sheetDataDto.getListRowData().get(1));
-										aggregatedData.setDataSourceGeoLevel(dataSourceGeoLevel); //Check(?)
-										aggregatedDataCategory = new AggregatedDataCategory();
-										if (sheetDataDto.getListHeaderData().get(i).getCategory() == "OVERALL") {
-											aggregatedData.setOverall(Double.parseDouble(sheetDataDto.getListRowData().get(i)));
+								for (int i = 2; i < sheetDataDto.getListHeaderData().size(); i++) {
+									if (sheetDataDto.getListHeaderData().get(i).getCategory() == "OVERALL") {
+										// CheckListRowData(?)
+										for (List<String> rowData : sheetDataDto.getListRowData()) {
+											aggregatedData = new AggregatedData();
+											aggregatedData.setGeoLevelState(rowData.get(0));
+											aggregatedData.setGeoLevelName(rowData.get(1));
+											aggregatedData.setDataSourceGeoLevel(dataSourceGeoLevel); // Check(?)
+											aggregatedData
+													.setOverall(Double.parseDouble(rowData.get(i)));
+
 											aggregatedData = aggregatedDataRepository.save(aggregatedData);
-										} else if (sheetDataDto.getListHeaderData().get(i).getCategory() == "BE_EXCLUED" || 
-												sheetDataDto.getListHeaderData().get(i).getCategory() == "GEO") {
-											
-										} else {
-											aggregatedDataCategory.setDataValue(Double.parseDouble(sheetDataDto.getListRowData().get(i)));
-										}
-										
-										/*if (headerDataDto.getCategory() == "overall") {
-											
-										}*/
+										}								
 									}
 								}
+
+								for (int i = 0; i < sheetDataDto.getListHeaderData().size(); i++) {
+									DataSourceColumnDefinition dataSourceColumnDefinition = new DataSourceColumnDefinition();
+									dataSourceColumnDefinition
+											.setCategory(sheetDataDto.getListHeaderData().get(i).getCategory());
+									dataSourceColumnDefinition
+											.setName(sheetDataDto.getListHeaderData().get(i).getNameInExcelFile());
+									dataSourceColumnDefinition
+											.setUiName(sheetDataDto.getListHeaderData().get(i).getNameForUI());
+									dataSourceColumnDefinition.setDataSourceName(dataSourceName);
+
+									dataSourceColumnDefinition = dataSourceColumnDefinitionRepository
+											.save(dataSourceColumnDefinition);
+
+									if (sheetDataDto.getListRowData() != null) {
+										if (!stringList
+												.contains(sheetDataDto.getListHeaderData().get(i).getCategory())) {
+											aggregatedDataCategory = new AggregatedDataCategory();
+											aggregatedDataCategory
+													.setDataSourceColumnDefinition(dataSourceColumnDefinition);
+											aggregatedDataCategory.setAggregatedData(aggregatedData);
+											for (List<String> rowData : sheetDataDto.getListRowData()) {
+												aggregatedDataCategory.setDataValue(
+														Double.parseDouble(rowData.get(i)));
+											}
+											
+											aggregatedDataCategoryRepository.save(aggregatedDataCategory);
+										}
+									} else {
+										return "ListRowData is null";
+									}
+								}
+							} else {
+								return "ListHeaderData is null";
 							}
 						}
+					} else {
+						return "GeoLevel is null";
 					}
 				}
+			} else {
+				return "ListSheetData is null";
 			}
+		} else {
+			return "responseDto is null";
 		}
-		return responseRepository.save(responseDto) ;
+		return "Save!";
 	}
-	
-	/*public Boolean insert(ResponseDTO responseDto) {
-		// TODO Auto-generated method stub
-		
-		if (responseDto != null) {
-			if(responseDto.getListIndex() != null) {
-				for (int i = 0; i < responseDto.getListIndex().size(); i ++) {
-					Index index = responseDto.getListIndex()[i];
-					indexRepo.save(index);
-				}
-			}
-		}
-		//aggregatedData.set
-		//aggregatedData.set
-		return null;
-	}*/
-	
-	// Convert String list to Double list
-	
 }

@@ -7,12 +7,12 @@ public class SheetDataDTO {
 	private String sheetName;
 	private String geoLevel;
 	private List<HeaderDataDTO> listHeaderData;
-	private List<String> listRowData;
+	private List<List<String>> listRowData;
 	
 	public SheetDataDTO() {}
 
 	public SheetDataDTO(String sheetName, String geoLevel, List<HeaderDataDTO> listHeaderData,
-			List<String> listRowData) {
+			List<List<String>> listRowData) {
 		super();
 		this.sheetName = sheetName;
 		this.geoLevel = geoLevel;
@@ -44,11 +44,11 @@ public class SheetDataDTO {
 		this.listHeaderData = listHeaderData;
 	}
 
-	public List<String> getListRowData() {
+	public List<List<String>> getListRowData() {
 		return listRowData;
 	}
 
-	public void setListRowData(List<String> listRowData) {
+	public void setListRowData(List<List<String>> listRowData) {
 		this.listRowData = listRowData;
 	}
 }

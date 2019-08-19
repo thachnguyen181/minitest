@@ -16,13 +16,13 @@ public class ResponseController {
 	@Autowired
 	private IResponseService responseService;
 	
-	@PostMapping(value = "")
-	public ResponseEntity<ResponseDTO> insert(@RequestBody ResponseDTO data) {
-		ResponseDTO responseDto = responseService.getData(data);
-		if (responseDto != null) {
-			return new ResponseEntity<ResponseDTO>(responseDto, HttpStatus.OK);
+	@PostMapping(value = "/response")
+	public ResponseEntity<String> insert(@RequestBody ResponseDTO data) {
+		String message = responseService.getData(data);
+		if (message == "Save!") {
+			return new ResponseEntity<String>(message, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<ResponseDTO>(responseDto, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
 		}
 	}
 }
