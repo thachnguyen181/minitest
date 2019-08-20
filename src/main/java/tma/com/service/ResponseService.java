@@ -144,10 +144,10 @@ public class ResponseService implements IResponseService {
 
 						// data_source_column_definition
 						if (dataSourceName != null) {
-							List<String> stringList = Arrays.asList("OVERALL", "BE_EXCLUED", "GEO");
+							List<String> stringList = Arrays.asList("OVERALL", "BE_EXCLUDED", "GEO");
 							if (sheetDataDto.getListHeaderData() != null) {
 								for (int i = 2; i < sheetDataDto.getListHeaderData().size(); i++) {
-									if (sheetDataDto.getListHeaderData().get(i).getCategory() == "OVERALL") {
+									if (sheetDataDto.getListHeaderData().get(i).getCategory().equals("OVERALL")) {
 										// CheckListRowData(?)
 										for (List<String> rowData : sheetDataDto.getListRowData()) {
 											aggregatedData = new AggregatedData();
@@ -185,9 +185,9 @@ public class ResponseService implements IResponseService {
 											for (List<String> rowData : sheetDataDto.getListRowData()) {
 												aggregatedDataCategory.setDataValue(
 														Double.parseDouble(rowData.get(i)));
-											}
-											
-											aggregatedDataCategoryRepository.save(aggregatedDataCategory);
+												
+												aggregatedDataCategoryRepository.save(aggregatedDataCategory);
+											}										
 										}
 									} else {
 										return "ListRowData is null";
