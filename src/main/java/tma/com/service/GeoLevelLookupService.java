@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tma.com.dto.GeoLevelLookupDTO;
+import tma.com.dto.SheetDataDTO;
+import tma.com.model.DataSourceColumnDefinition;
+import tma.com.model.DataSourceFile;
+import tma.com.model.DataSourceName;
 import tma.com.model.GeoLevelLookup;
 import tma.com.repository.IGeoLevelLookupRepository;
 
@@ -15,31 +19,23 @@ public class GeoLevelLookupService implements IGeoLevelLookupService {
 
 	@Autowired
 	private IGeoLevelLookupRepository geoLevelLookupRepository;
-
-	/*@Override
-	public List<GeoLevelLookup> getAll() {
-		// TODO Auto-generated method stub
-		
-		return geoLevelLookupRepository.findAll();
-	}
-
-	@Override
-	public GeoLevelLookup insert(GeoLevelLookup geoLevelLookup) {
-		// TODO Auto-generated method stub
-		
-		GeoLevelLookup geoLevelLookupEdited = geoLevelLookupRepository.save(geoLevelLookup);
-		return geoLevelLookupEdited;
-	}*/
 	
+	@Autowired
+	private IDataSourceGeoLevelService dataSourceGeoLevelService;
 	
 	@Override
-	public GeoLevelLookup insert(GeoLevelLookupDTO geoLevelLookupDto) {
+	public GeoLevelLookup save(SheetDataDTO sheetDataDto, DataSourceFile dataSourceFile, DataSourceName dataSourceName) {
 		// TODO Auto-generated method stub
+
+		GeoLevelLookup result = geoLevelLookupRepository.findByName(sheetDataDto.getGeoLevel());
+		if (result == null) {
+			result.setGeoName(sheetDataDto.getGeoLevel());
+			result = geoLevelLookupRepository.save(result);
+		}
 		
-		GeoLevelLookup geoLevelLookup = new GeoLevelLookup();
-		geoLevelLookup.setGeoName(geoLevelLookupDto.getGeoname());
-		//geoLevelLookup.setDataSourceGeoLevels(dataSourceGeoLevels);
-		return geoLevelLookupRepository.save(geoLevelLookup);
+		dataSourceGeoLevelService.save(result, dataSourceFile, dataSourceName, sheetDataDto.getListHeaderData(), sheetDataDto.getListRowData());
+		
+		return result;
 	}
 
 	@Override

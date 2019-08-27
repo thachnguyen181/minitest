@@ -73,11 +73,10 @@ public class ResponseService implements IResponseService {
 		if (responseDto != null) {
 			if (responseDto.getDataSourceName() != "") {
 
+				dataSourceName = new DataSourceName();
+				dataSourceName = dataSourceNameRepository.findByName(responseDto.getDataSourceName());
 				// data_source_name
-				if (dataSourceNameRepository.findByName(responseDto.getDataSourceName()) != null) {
-					dataSourceName = dataSourceNameRepository.findByName(responseDto.getDataSourceName());
-				} else {
-					dataSourceName = new DataSourceName();
+				if (dataSourceName == null) {					
 					dataSourceName.setName(responseDto.getDataSourceName());
 
 					dataSourceName = dataSourceNameRepository.save(dataSourceName);
@@ -209,4 +208,6 @@ public class ResponseService implements IResponseService {
 		}
 		return "Save!";
 	}
+	
+	
 }

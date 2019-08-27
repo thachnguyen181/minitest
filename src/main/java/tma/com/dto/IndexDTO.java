@@ -7,12 +7,12 @@ public class IndexDTO {
 	private int id;
 	private String indexName;
 	private String displayName;
-	private Date createdAt;
-	private Date updatedAt;
+	private Long createdAt;
+	private Long updatedAt;
 	
 	public IndexDTO() {}
 	
-	public IndexDTO(int id, String indexName, String displayName, Date createdAt, Date updatedAt) {
+	public IndexDTO(int id, String indexName, String displayName, Long createdAt, Long updatedAt) {
 		super();
 		this.id = id;
 		this.indexName = indexName;
@@ -45,19 +45,19 @@ public class IndexDTO {
 		this.displayName = displayName;
 	}
 
-	public Date getCreatedAt() {
+	public Long getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreateAt(Date createdAt) {
+	public void setCreateAt(Long createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public Long getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(Long updatedAt) {
 		this.updatedAt = updatedAt;
 	}		
 }

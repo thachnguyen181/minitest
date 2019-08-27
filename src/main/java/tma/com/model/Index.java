@@ -12,6 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import tma.com.minitest.CustomerDateAndTimeDeserialize;
 
 @Entity
 @Table(name = "index")
@@ -24,9 +30,13 @@ public class Index implements Serializable{
 	@Column(name = "id")
 	private int id;
 	
+	@JsonDeserialize(using= CustomerDateAndTimeDeserialize.class)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at")
 	private Date createdAt;
 	
+	@JsonDeserialize(using= CustomerDateAndTimeDeserialize.class)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_at")
 	private Date updatedAt;
 	
